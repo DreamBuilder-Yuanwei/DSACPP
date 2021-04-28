@@ -15,7 +15,7 @@ After doing this, we will solve some algoritm problems with the DSA we have impl
   2. Support for unit testing.
   2. 支持单元测试。
 
-## Code standards 代码规范
+## Code Standards 代码规范
 
 Google Style Guide (English) https://code.google.com/p/google-styleguide/
 
