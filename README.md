@@ -13,4 +13,4 @@ After doing this, we will solve some algoritm problems with the DSA we have impl
   1. 在Linux环境下编译执行；
   
   2. Support for unit testing.
-  2. 支持单元测试；
+  2. 支持单元测试。
