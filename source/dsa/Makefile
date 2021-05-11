@@ -1,9 +1,12 @@
-TOP_DIR = $(shell pwd)
-TARGET = libdsa.so
-SOURCE = $(TOP_DIR)/src/*.c
+TOP_DIR=$(shell pwd)
+INCLUDE_PATH=-I$(TOP_DIR)
+TARGET=libdsa.so
+SOURCE=$(TOP_DIR)/src/*.cc
+
+all: $(TARGET)
 
 $(TARGET): $(SOURCE)
-	$(CXX) -fPIC -shared -o $@ $^
+	$(CXX) $(INCLUDE_PATH) -fPIC -shared -o $@ $^
 
 .PHONY: clean
 clean:

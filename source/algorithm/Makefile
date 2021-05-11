@@ -1,10 +1,14 @@
-TOP_DIR = $(shell pwd)
-DSA_DIR = $(DSA_DIR)
-TARGET = libalgorithm.so
-SOURCE = $(TOP_DIR)/src/*.c $(TOP_DIR)/problems/*.c
+TOP_DIR=$(shell pwd)
+INCLUDE_PATH=-I$(TOP_DIR) -I$(DSA_DIR)
+LIB_PATH=-L$(DSA_DIR)
+LIB=-ldsa
+TARGET=libalgorithm.so
+SOURCE=$(TOP_DIR)/src/*.cc $(TOP_DIR)/problems/*.cc
+
+all: $(TARGET)
 
 $(TARGET): $(SOURCE)
-	$(CXX) -I$(DSA_DIR) -L$(DSA_DIR) -ldsa -fPIC -shared -o $@ $^
+	$(CXX) $(INCLUDE_PATH) $(LIB_PATH) $(LIB) -fPIC -shared -o $@ $^
 
 .PHONY: clean
 clean:

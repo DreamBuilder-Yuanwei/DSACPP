@@ -70,6 +70,18 @@ function prepare_dir() {
     mkdir -p target/lib
 }
 
+### create log file
+function create_log_file() {
+    echo "[log] create log file when log file doesn't exist"
+    if [ -f $1 ]
+    then
+        return 0
+    else
+        echo "[log] start to create log file: $1"
+        touch $1
+    fi
+}
+
 ### setup build variants
 function setup_variants() {
     echo "[log] setup build variants"
@@ -99,7 +111,8 @@ function build() {
 ### clean
 function clean() {
     echo "[log] `date +"%F %T"` start cleaning..."
-    make -C $MY_SOURCE_DIR clean > $MY_TARGET_DIR/build.log 2>&1
+    rm -rf $MY_TARGET_DIR
+    make -C $MY_SOURCE_DIR clean
     if [ $? == 0 ]
     then
         echo "[log] `date +"%F %T"` clean success !!!"
@@ -107,13 +120,11 @@ function clean() {
         echo "[log] `date +"%F %T"` clean failed !!!"
         my_exit 69
     fi
-    rm -rf $MY_TARGET_DIR
 }
 
 ### inject
 function inject() {
     echo "[log] `date +"%F %T"` start injecting..."
-    prepare_dir
     check_file_exist $MY_DSACPP_BIN
     check_dir_exist $MY_BIN_DIR
     cp -rf $MY_DSACPP_BIN $MY_BIN_DIR
@@ -139,18 +150,20 @@ function main() {
         my_exit 67
     fi
     setup_variants
+    prepare_dir
+    create_log_file
     case $1 in
     build)
-        echo "[log] try to build all"
+        echo "[log] try to build"
         build
         inject
         ;;
     clean)
-        echo "[log] try to clean all temp"
+        echo "[log] try to clean"
         clean
         ;;
     *)
-        echo "[log] default try to build all "
+        echo "[log] default try to build"
         build
         inject
         ;;

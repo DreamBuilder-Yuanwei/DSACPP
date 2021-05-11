@@ -1,11 +1,14 @@
-TOP_DIR = $(shell pwd)
-DSA_DIR = $(DSA_DIR)
-ALGORITHM_DIR = $(ALGORITHM_DIR)
-TARGET = dsacpp
-SOURCE = $(TOP_DIR)/src/*.c
+TOP_DIR=$(shell pwd)
+INCLUDE_PATH=-I$(TOP_DIR) -I$(DSA_DIR) -I$(ALGORITHM_DIR)
+LIB_PATH=-L$(DSA_DIR) -L$(ALGORITHM_DIR)
+LIB=-ldsa -lalgorithm
+TARGET=dsacpp
+SOURCE=$(TOP_DIR)/src/*.cc
+
+all: $(TARGET)
 
 $(TARGET): $(SOURCE)
-	$(CXX) -I$(DSA_DIR) -I$(ALGORITHM_DIR) -L$(DSA_DIR) -L$(ALGORITHM_DIR) -ldsa -lalgorithm -o $@ $^
+	$(CXX) $(INCLUDE_PATH) $(LIB_PATH) $(LIB) -o $@ $^
 
 .PHONY: clean
 clean:
