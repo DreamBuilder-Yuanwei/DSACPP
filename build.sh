@@ -72,7 +72,6 @@ function prepare_dir() {
 
 ### create log file
 function create_log_file() {
-    echo "[log] create log file when log file doesn't exist"
     if [ -f $1 ]
     then
         return 0
@@ -98,7 +97,7 @@ function setup_variants() {
 ### build
 function build() {
     echo "[log] `date +"%F %T"` start building..."
-    make -C $MY_SOURCE_DIR all > $MY_TARGET_DIR/build.log 2>&1
+    make -C $MY_SOURCE_DIR all >$MY_TARGET_DIR/build.log 2>&1
     if [ $? == 0 ]
     then
         echo "[log] `date +"%F %T"` build success !!!"
@@ -112,7 +111,7 @@ function build() {
 function clean() {
     echo "[log] `date +"%F %T"` start cleaning..."
     rm -rf $MY_TARGET_DIR
-    make -C $MY_SOURCE_DIR clean
+    make -C $MY_SOURCE_DIR clean >/dev/null 2>&1
     if [ $? == 0 ]
     then
         echo "[log] `date +"%F %T"` clean success !!!"
@@ -135,37 +134,56 @@ function inject() {
     export LD_LIBRARY_PATH=$MY_LIB_DIR:$LD_LIBRARY_PATH
 }
 
-### main
-function main() {
-    # check param count
-    if [ ! $# == 1 ]
-    then 
-        echo "[log] usage: $0 [build|clean]"
-        echo "[log] example : $0 build"
-        echo "[log] ----------------------------------------------------------------"
-        echo "[log] build            build target"
-        echo "[log] clean            clean build temp"
-        echo ""
-        echo ""
-        my_exit 67
-    fi
+### usage tips
+function usage_tips() {
+    echo "[log] usage: $0 [build|clean]"
+    echo "[log] example : $0 build"
+    echo "[log] ----------------------------------------------------------------"
+    echo "[log] build            build target"
+    echo "[log] clean            clean build temp"
+    echo ""
+    echo ""
+    my_exit 67
+}
+
+### common_operation
+function common_operation() {
     setup_variants
     prepare_dir
     create_log_file
+}
+
+### main
+function main() {
+    # check param count
+    if [ $# == 0  ]
+    then
+        echo "[log] default try to build"
+	common_operation
+	build
+	inject
+	return 0
+    fi
+
+    if [ ! $# == 1 ]
+    then 
+        usage_tips
+    fi
+
     case $1 in
     build)
         echo "[log] try to build"
-        build
+        common_operation
+       	build
         inject
         ;;
     clean)
         echo "[log] try to clean"
-        clean
+        setup_variants
+	clean
         ;;
     *)
-        echo "[log] default try to build"
-        build
-        inject
+        usage_tips
         ;;
     esac
 }

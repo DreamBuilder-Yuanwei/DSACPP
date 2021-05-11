@@ -33,3 +33,6 @@
 
 # Visual studio code settings
 *.json
+
+# log file
+*.log
