@@ -1,7 +1,7 @@
 TOP_DIR = $(shell pwd)
-DSA_DIR = $(TOP_DIR)/dsa
+export DSA_DIR = $(TOP_DIR)/dsa
 UNITTEST_DIR = $(TOP_DIR)/unittest
-ALGORITHM_DIR = $(TOP_DIR)/algorithm
+export ALGORITHM_DIR = $(TOP_DIR)/algorithm
 
 .PHONY: all clean
 

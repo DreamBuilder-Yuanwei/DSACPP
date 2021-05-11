@@ -9,7 +9,7 @@
 
 // 插入为当前节点的前驱
 template<typename T> ListNodePosi<T> ListNode<T>::insertAsPred(T const& e) {
-    ListNodePosi p = new ListNode(e, pred, this);
+    ListNodePosi<T> p = new ListNode(e, pred, this);
     pred->succ = p;
     pred = p;
     return p;
@@ -17,7 +17,7 @@ template<typename T> ListNodePosi<T> ListNode<T>::insertAsPred(T const& e) {
 
 // 插入为当前节点的后继
 template<typename T> ListNodePosi<T> ListNode<T>::insertAsSucc(T const& e) {
-    LsiNodePosi p = new ListNode(e, this, succ);
+    ListNodePosi<T> p = new ListNode(e, this, succ);
     succ->pred = p;
     succ = p;
     return p;

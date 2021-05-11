@@ -6,6 +6,7 @@
  ******************************************************************************************/
 #pragma once
 
+#include <cstdlib>
 #include "include/list_node.h"
 
 // 双向列表
@@ -23,7 +24,7 @@ template<typename T> class List {
 
  public:
     // constructor
-    List() : { init(); }
+    List() { init(); }
 
     // 将列表l复制到当前列表, 深拷贝
     List(List<T> const& l) {
@@ -69,24 +70,28 @@ template<typename T> class List {
     ListNodePosi<T> insertAsFirst(T const& e) {
         header->insertAsSucc(e);
         _size++;
+	return header->succ;
     }
 
     // 插入为末节点
     ListNodePosi<T> insertAsLast(T const& e) {
         trailer->insertAsPred(e);
         _size++;
+	return trailer->pred;
     }
 
     // 在位置p前插入
     ListNodePosi<T> insertBefore(T const& e, ListNodePosi<T> p) {
         p->insertAsPred(e);
         _size++;
+	return p->pred;
     }
 
     // 在位置p后插入
     ListNodePosi<T> insertAfter(ListNodePosi<T> p, T const& e) {
         p->insertAsSucc(e);
         _size++;
+	return p->succ;
     }
 
     T remove(ListNodePosi<T>);  // 删除节点并返回该节点数据
@@ -97,18 +102,18 @@ template<typename T> class List {
     // 失败返回NULL
     // n > 0 向后, n < 0 向前, n == 0 非法 返回失败
     ListNodePosi<T> findSorted(T const&,
-     ListNodePosi<T> p = header->succ, int n = _size) const;
+     ListNodePosi<T> p = first(), int n = size()) const;
 
     // 在当前无序列表中查找
     // 返回最后一个等于e的元素的位置
     // 失败返回NULL
     // n > 0 向后, n < 0 向前, n == 0 非法 返回失败
     ListNodePosi<T> findUnsorted(T const&,
-     ListNodePosi<T> p = header->succ, int n = _size) const;
+     ListNodePosi<T> p = first(), int n = size()) const;
 
     // 在当前列表(不区分是否有序)中查找
     ListNodePosi<T> find(T const& e,
-     ListNodePosi<T> p = header->succ, int n = _size) const {
+     ListNodePosi<T> p = first(), int n = size()) const {
         return true == disorder() ?
         findUnsorted(e, p, n) : findSorted(e, p, n);
     }

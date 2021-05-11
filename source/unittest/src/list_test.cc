@@ -11,15 +11,18 @@
 
 void printChar(char & c) {
     printf("%c ", c);
+    return;
 }
 
 void printInt(int & c) {
     printf("%d ", c);
+    return;
 }
 
-template<typename T> void printList(List<T> const & l, void(*vist)) {
+template<typename T> void printList(List<T> const & l, void(*vist) (T &)) {
     l.traverse(vist);
     printf("\n");
+    return;
 }
 
 void listTest() {
@@ -64,4 +67,5 @@ void listTest() {
     l3.find(3, l3.first(), 5);
     assert(1 == l3[0]);
     assert(5 == l3[2]);
+    return;
 }

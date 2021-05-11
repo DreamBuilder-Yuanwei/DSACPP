@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <cstdlib>
+
 using Rank = int;  // Rank
 template<typename T> struct ListNode;  // declaration of class ListNode
 template<typename T> using ListNodePosi = ListNode<T>*;  // position of ListNode
