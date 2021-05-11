@@ -5,7 +5,7 @@
  * Copyright (c) 2021-2050. All rights reserved.
  ******************************************************************************************/
 
-#include "list.h"
+#include "include/list.h"
 
 // 列表初始化
 template<typename T> void List<T>::init() {

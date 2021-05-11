@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "list.h"
+#include "include/list.h"
 
 // 类型T必须重载了++运算符
 template<typename T>
