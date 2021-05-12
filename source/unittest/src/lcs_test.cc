@@ -11,7 +11,7 @@
 #include "include/longest_common_subsequence.h"
 
 char A[max_len], B[max_len];
-int table[max_len + 1][max_len + 1];
+int table[max_len][max_len], dp[max_len + 1][max_len + 1];
 
 void lcs_test() {
     scanf("%s %s", A, B);
