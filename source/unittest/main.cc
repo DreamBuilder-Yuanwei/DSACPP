@@ -6,7 +6,10 @@
  ******************************************************************************************/
 
 #include "include/list_test.h"
+#include <cstdio>
 
 int main() {
-    listTest();
+    // listTest();
+    printf("hello dsacpp!\n");
+    return 0;
 }

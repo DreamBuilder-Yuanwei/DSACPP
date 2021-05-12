@@ -132,6 +132,7 @@ function inject() {
     check_dir_exist $MY_LIB_DIR
     cp -rf $MY_DSA_SO $MY_ALGORITHM_SO $MY_LIB_DIR
     export LD_LIBRARY_PATH=$MY_LIB_DIR:$LD_LIBRARY_PATH
+    echo "[log] `date +"%F %T"` inject success !!!"
 }
 
 ### usage tips

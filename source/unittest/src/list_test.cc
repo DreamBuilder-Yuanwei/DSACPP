@@ -26,6 +26,7 @@ template<typename T> void printList(List<T> const & l, void(*vist) (T &)) {
 }
 
 void listTest() {
+/*
     List<char> l;
 
     assert(true == l.empty());
@@ -67,5 +68,6 @@ void listTest() {
     l3.find(3, l3.first(), 5);
     assert(1 == l3[0]);
     assert(5 == l3[2]);
+*/
     return;
 }
