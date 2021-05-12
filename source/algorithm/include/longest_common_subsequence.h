@@ -7,6 +7,8 @@
 
 #pragma once
 
+const int max_len = 50;
+
 int LCS_R(char A[], int lenA, char B[], int lenB);
-int LCS_M(char A[], int lenA, char B[], int lenB, int **table);
-int LCS_I(char A[], int lenA, char B[], int lenB, int **dp);
+int LCS_M(char A[], int lenA, char B[], int lenB, int table[][max_len]);
+int LCS_I(char A[], int lenA, char B[], int lenB, int dp[][max_len + 1]);

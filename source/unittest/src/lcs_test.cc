@@ -5,11 +5,10 @@
  * Copyright (c) 2021-2050. All rights reserved.
  ******************************************************************************************/
 
+#include <cstdio>
 #include <cstring>
 #include "include/timer.h"
 #include "include/longest_common_subsequence.h"
-
-const int max_len = 50;
 
 char A[max_len], B[max_len];
 int table[max_len + 1][max_len + 1];

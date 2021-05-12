@@ -5,6 +5,8 @@
  * Copyright (c) 2021-2050. All rights reserved.
  ******************************************************************************************/
 
+#include "include/longest_common_subsequence.h"
+
 #define max(a, b) (((a) > (b)) ? (a) : (b))
 
 // 递归版
@@ -18,7 +20,7 @@ int LCS_R(char A[], int lenA, char B[], int lenB) {
 // 记忆策略
 // table[lenA][lenB]中记录各子问题的解, 初始值为-1
 // 返回最长公共子序列长度
-int LCS_M(char A[], int lenA, char B[], int lenB, int **table) {
+int LCS_M(char A[], int lenA, char B[], int lenB, int table[][max_len]) {
     if (lenA == 0 || lenB == 0) return 0;
     if (A[lenA - 1] == B[lenB - 1]) {
         if (-1 == table[lenA - 1][lenB - 1])
@@ -38,7 +40,7 @@ int LCS_M(char A[], int lenA, char B[], int lenB, int **table) {
 //     dp[i][j] = 1 + dp[i - 1][j - 1], A[i - 1] == B[j - 1]时
 //     dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]), A[i - 1] != B[j - 1]时
 // 返回最长公共子序列长度
-int LCS_I(char A[], int lenA, char B[], int lenB, int **dp) {
+int LCS_I(char A[], int lenA, char B[], int lenB, int dp[][max_len + 1]) {
     for (int i = 1; i < lenA + 1; i++) {
         for (int j = 1; j < lenB + 1; j++) {
             if (A[i - 1] == B[j - 1])
