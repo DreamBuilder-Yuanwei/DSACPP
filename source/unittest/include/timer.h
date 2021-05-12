@@ -19,7 +19,7 @@ class Timer {
     // 返回ms
     double spend_time_micro() {
         end_time = clock();
-        return (double)(end_time - start_time);
+        return (double)(end_time - start_time) / CLOCKS_PER_SEC * 1000;
     }
 
     // 返回s

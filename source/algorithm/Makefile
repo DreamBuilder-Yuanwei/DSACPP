@@ -8,7 +8,7 @@ SOURCE=$(TOP_DIR)/src/*.cc $(TOP_DIR)/problems/*.cc
 all: $(TARGET)
 
 $(TARGET): $(SOURCE)
-	$(CXX) $(INCLUDE_PATH) $(LIB_PATH) $(LIB) -fPIC -shared -o $@ $^
+	$(CXX) $(INCLUDE_PATH) $(LIB_PATH) -fPIC -shared -o $@ $^ $(LIB)
 
 .PHONY: clean
 clean:

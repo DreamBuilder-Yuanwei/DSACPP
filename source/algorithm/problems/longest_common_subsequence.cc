@@ -6,8 +6,7 @@
  ******************************************************************************************/
 
 #include "include/longest_common_subsequence.h"
-
-#define max(a, b) (((a) > (b)) ? (a) : (b))
+#include "include/algorithm.h"
 
 // 递归版
 // 返回最长公共子序列长度

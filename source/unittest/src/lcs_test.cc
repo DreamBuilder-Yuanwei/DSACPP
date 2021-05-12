@@ -21,18 +21,18 @@ void lcs_test() {
     Timer timer;
     int result_R = LCS_R(A, lenA, B, lenB);
     double t = timer.spend_time_micro();
-    printf("function: LCS_R, result: %d, spend time: %lf\n", result_R, t);
+    printf("function: LCS_R, result: %d, spend time: %.3lfms\n", result_R, t);
 
     memset(table, -1, sizeof(table));
     timer.reset();
     int result_M = LCS_M(A, lenA, B, lenB, table);
     t = timer.spend_time_micro();
-    printf("function: LCS_M, result: %d, spend time: %lf\n", result_M, t);
+    printf("function: LCS_M, result: %d, spend time: %.3lfms\n", result_M, t);
 
     timer.reset();
     int result_I = LCS_I(A, lenA, B, lenB, dp);
     t = timer.spend_time_micro();
-    printf("function: LCS_I, result: %d, spend time: %lf\n", result_I, t);
+    printf("function: LCS_I, result: %d, spend time: %.3lfms\n", result_I, t);
 
     return;
 }
