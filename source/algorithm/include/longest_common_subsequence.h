@@ -9,6 +9,7 @@
 
 const int max_len = 50;
 
-int LCS_R(char A[], int lenA, char B[], int lenB);
-int LCS_M(char A[], int lenA, char B[], int lenB, int table[][max_len]);
-int LCS_I(char A[], int lenA, char B[], int lenB, int dp[][max_len + 1]);
+int LCS_R(char[], int, char[], int);
+int LCS_M(char[], int, char[], int, int[][max_len]);
+void get_LCS(char[], int, char[], int, int[][max_len], char[max_len]);
+int LCS_I(char[], int, char[], int, int[][max_len + 1], char[max_len]);

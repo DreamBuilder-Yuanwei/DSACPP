@@ -11,7 +11,7 @@
 #include "include/timer.h"
 #include "include/longest_common_subsequence.h"
 
-char A[max_len], B[max_len];
+char A[max_len], B[max_len], lcs[max_len];
 int table[max_len][max_len], dp[max_len + 1][max_len + 1];
 
 void lcs_test() {
@@ -26,13 +26,17 @@ void lcs_test() {
     memset(table, -1, sizeof(table));
     timer.reset();
     int result_M = LCS_M(A, lenA, B, lenB, table);
+    get_LCS(A, lenA, B, lenB, table, lcs);
     t = timer.spend_time_micro();
-    printf("function: LCS_M, result: %d, spend time: %.3lfms\n", result_M, t);
+    printf("function: LCS_M, result: %d - %s, spend time: %.3lfms\n",
+        result_M, lcs, t);
 
+    memset(lcs, 0, sizeof(lcs));
     timer.reset();
-    int result_I = LCS_I(A, lenA, B, lenB, dp);
+    int result_I = LCS_I(A, lenA, B, lenB, dp, lcs);
     t = timer.spend_time_micro();
-    printf("function: LCS_I, result: %d, spend time: %.3lfms\n", result_I, t);
+    printf("function: LCS_I, result: %d - %s, spend time: %.3lfms\n",
+        result_I, lcs, t);
 
     return;
 }

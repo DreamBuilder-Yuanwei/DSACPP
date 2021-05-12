@@ -33,19 +33,34 @@ int LCS_M(char A[], int lenA, char B[], int lenB, int table[][max_len]) {
     return max(table[lenA - 1][lenB], table[lenA][lenB - 1]);
 }
 
+// 从记忆策略记录的表中获取LCS
+void get_LCS(char A[], int lenA, char B[], int lenB, int table[][max_len],
+    char lcs[max_len]) {
+    for (int i = 0; i < lenA; i++) {
+        for (int j = 0; j <lenB; j++) {
+            if (A[i] == B[j])
+                lcs[table[i][j] - 1] = A[i];
+        }
+    }
+}
+
 // 动态规划
 // dp[lenA + 1][lenB + 1]中记录各子问题的解, 初始值为0
+// lsc[max_len]用于存储计算出来的LCS
 // 状态转移方程：
 //     dp[i][j] = 1 + dp[i - 1][j - 1], A[i - 1] == B[j - 1]时
 //     dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]), A[i - 1] != B[j - 1]时
 // 返回最长公共子序列长度
-int LCS_I(char A[], int lenA, char B[], int lenB, int dp[][max_len + 1]) {
+int LCS_I(char A[], int lenA, char B[], int lenB, int dp[][max_len + 1],
+    char lcs[max_len]) {
     for (int i = 1; i < lenA + 1; i++) {
         for (int j = 1; j < lenB + 1; j++) {
-            if (A[i - 1] == B[j - 1])
+            if (A[i - 1] == B[j - 1]) {
                 dp[i][j] = 1 + dp[i - 1][j - 1];
-            else
+                lcs[dp[i][j] - 1] = A[i - 1];
+            } else {
                 dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+            }
         }
     }
     return dp[lenA][lenB];
