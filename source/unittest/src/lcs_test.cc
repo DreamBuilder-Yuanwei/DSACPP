@@ -28,9 +28,8 @@ void lcs_test() {
     t = timer.spend_time_micro();
     printf("function: LCS_M, result: %d, spend time: %lf\n", result_M, t);
 
-    memset(table, 0, sizeof(table));
     timer.reset();
-    int result_I = LCS_I(A, lenA, B, lenB, table);
+    int result_I = LCS_I(A, lenA, B, lenB, dp);
     t = timer.spend_time_micro();
     printf("function: LCS_I, result: %d, spend time: %lf\n", result_I, t);
 
