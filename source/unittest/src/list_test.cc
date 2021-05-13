@@ -6,6 +6,7 @@
  ******************************************************************************************/
 
 #include "include/unittest.h"
+#include "include/list.h"
 #include <assert.h>
 #include <cstdio>
 
@@ -20,7 +21,7 @@ void printInt(int & c) {
 }
 
 template<typename T> void printList(List<T> const & l, void(*vist) (T &)) {
-    l.traverse(vist);
+    // l.traverse(vist);
     printf("\n");
     return;
 }
