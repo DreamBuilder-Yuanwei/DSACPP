@@ -7,7 +7,7 @@
 
 #include <cstdio>
 #include <cstring>
-#include "include/lcs_test.h"
+#include "include/unittest.h"
 #include "include/timer.h"
 #include "include/longest_common_subsequence.h"
 
