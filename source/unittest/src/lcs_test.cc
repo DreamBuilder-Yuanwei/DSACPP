@@ -12,10 +12,11 @@
 #include "include/longest_common_subsequence.h"
 
 char A[max_len], B[max_len], lcs[max_len];
-int table[max_len][max_len], dp[max_len + 1][max_len + 1];
+int table[max_len + 1][max_len + 1];
 
 void lcs_test() {
     scanf("%s %s", A, B);
+    printf("A = %s, B = %s\n", A, B);
     int lenA = strlen(A), lenB = strlen(B);
 
     Timer timer;
@@ -32,8 +33,9 @@ void lcs_test() {
         result_M, lcs, t);
 
     memset(lcs, 0, sizeof(lcs));
+    memset(table, 0, sizeof(table));
     timer.reset();
-    int result_I = LCS_I(A, lenA, B, lenB, dp, lcs);
+    int result_I = LCS_I(A, lenA, B, lenB, table, lcs);
     t = timer.spend_time_micro();
     printf("function: LCS_I, result: %d - %s, spend time: %.3lfms\n",
         result_I, lcs, t);

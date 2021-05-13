@@ -7,9 +7,9 @@
 
 #pragma once
 
-const int max_len = 50;
+const int max_len = 100;
 
 int LCS_R(char[], int, char[], int);
-int LCS_M(char[], int, char[], int, int[][max_len]);
-void get_LCS(char[], int, char[], int, int[][max_len], char[max_len]);
+int LCS_M(char[], int, char[], int, int[][max_len + 1]);
+void get_LCS(char[], int, char[], int, int[][max_len + 1], char[max_len]);
 int LCS_I(char[], int, char[], int, int[][max_len + 1], char[max_len]);
