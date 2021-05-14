@@ -11,11 +11,11 @@ all:
 	@echo "make libdsa.so end!"
 
 	@echo "make libalgorithm.so start!"
-	$(MAKE) -C $(ALGORITHM_DIR) all $(DSA_DIR)
+	$(MAKE) -C $(ALGORITHM_DIR) all
 	@echo "make libalgorithm.so end!"
 
 	@echo "make dsacpp start!"
-	$(MAKE) -C $(UNITTEST_DIR) all $(DSA_DIR) $(ALGORITHM_DIR)
+	$(MAKE) -C $(UNITTEST_DIR) all
 	@echo "make dsacpp end!"
 
 clean:

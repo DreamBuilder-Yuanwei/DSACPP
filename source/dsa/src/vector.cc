@@ -4,7 +4,6 @@
  * Yuanwei XIE, xywcst@gmail.com
  * Copyright (c) 2021-2050. All rights reserved.
  ******************************************************************************************/
-#pragma once
 
 #include <cstdlib>
 #include <cstring>
@@ -12,14 +11,14 @@
 #include "include/algorithm.h"
 
 // 从A[lo, hi)中拷贝数据到_elem
-template<typename T> void Voctor<T>::copyFrom(T const* A, Rank lo, Rank hi) {
+template<typename T> void Vector<T>::copyFrom(T const* A, Rank lo, Rank hi) {
     _elem = new T[_capacity = max(DEFAULT_CAPACITY, (hi - lo) << 1)];
     memset(_elem, 0, _capacity);
     for (_size = 0; _size < hi - lo; _size++) _elem[_size] = A[lo + _size];
 }
 
 // 扩容
-template<typename T> void Voctor<T>::expend() {
+template<typename T> void Vector<T>::expand() {
     if (_size < _capacity) return;  // 尚有剩余空间, 不必扩容
     _capacity = max(_capacity, DEFAULT_CAPACITY);
     T *old_elem = _elem;
@@ -30,7 +29,7 @@ template<typename T> void Voctor<T>::expend() {
     delete [] old_elem;  // 释放旧空间资源
 }
 
-template<typename T> void Voctor<T>::shrink() {
+template<typename T> void Vector<T>::shrink() {
     // 装填因子(load factor)高于25%, 不必缩容
     if (_capacity < 4 * _size) return;
     T *old_elem = _elem;
@@ -43,7 +42,7 @@ template<typename T> void Voctor<T>::shrink() {
 }
 
 // 二路归并
-template<typename T> void Voctor<T>::merge(Rank lo, Rank mid, Rank hi) {
+template<typename T> void Vector<T>::merge(Rank lo, Rank mid, Rank hi) {
     int lb = mid - lo, lc = hi - mid;
     T *A = _elem + lo, *C = _elem + mid, *B = new T[lb];
     for (int i = 0; i < lb; i++) B[i] = A[i];
@@ -57,7 +56,7 @@ template<typename T> void Voctor<T>::merge(Rank lo, Rank mid, Rank hi) {
 }
 
 // 归并排序
-template<typename T> void Voctor<T>::mergeSort(Rank lo, Rank hi) {
+template<typename T> void Vector<T>::mergeSort(Rank lo, Rank hi) {
     if (hi - lo < 2) return;
     Rank mid = (lo + hi) >> 1;
     mergeSort(lo, mid);  // 对[lo, mid)中的元素进行归并排序
@@ -73,7 +72,7 @@ Rank Vector<T>::binSearchA(T const& e, Rank lo, Rank hi) const {
     while (lo < hi) {
         Rank mid = (lo + hi) >> 1;
         if (e < _elem[mid]) hi = mid;
-        else if (elem[mid] < e) lo = mid + 1;
+        else if (_elem[mid] < e) lo = mid + 1;
         else
             return mid;
     }
@@ -105,24 +104,24 @@ Rank Vector<T>::binSearchC(T const& e, Rank lo, Rank hi) const {
 }
 
 // 重载下标运算符, 可作为左值
-template<typename T> T& Voctor<T>::operator[](Rank r) {
+template<typename T> T& Vector<T>::operator[](Rank r) {
     return _elem[r];
 }
 
 // 重载下标运算符, 只能作为右值
-template<typename T> T const& Voctor<T>::operator[](Rank r) const {
+template<typename T> T const& Vector<T>::operator[](Rank r) const {
     return _elem[r];
 }
 
 // 删除秩为r的元素
-template<typename T> T Voctor<T>::remove(Rank r) {
+template<typename T> T Vector<T>::remove(Rank r) {
     T e = _elem[r];
     remove(r, r + 1);
     return e;
 }
 
 // 删除[lo, hi)区间内的元素
-template<typename T> int Vector::remove(Rank lo, Rank hi) {
+template<typename T> int Vector<T>::remove(Rank lo, Rank hi) {
     while (hi < _size) _elem[lo++] = _elem[hi++];
     _size = lo;
     shrink();
@@ -130,8 +129,8 @@ template<typename T> int Vector::remove(Rank lo, Rank hi) {
 }
 
 // 在秩r处插入元素e
-template<typename T> Rank Voctor<T>::insert(Rank r, T const& e) {
-    expend();
+template<typename T> Rank Vector<T>::insert(Rank r, T const& e) {
+    expand();
     for (int i = _size; i > r; i--) _elem[i] = _elem[i - 1];
     _elem[r] = e;
     return r;
@@ -180,15 +179,15 @@ template<typename T> Rank Vector<T>::find(T const& e, Rank lo, Rank hi) const {
 // 在区间[lo, hi)内查找元素e
 // 返回最后一个不大于e的元素的秩
 template<typename T>
-Rank Vector<T>::serach(T const& e, Rank lo, Rank hi) const {
+Rank Vector<T>::search(T const& e, Rank lo, Rank hi) const {
     return binSearchC(e, lo, hi);
 }
 
 // 遍历-函数指针
-template<typename T> void traverse(void(*vist) (T&)) {
+template<typename T> void Vector<T>::traverse(void(*vist) (T&)) {
     for (int i = 0; i < _size; i++) vist(_elem[i]);
 }
 // 遍历-函数对象
-template<typename T> template<typename VST> void traverse(VST& vist) {
+template<typename T> template<typename VST> void Vector<T>::traverse(VST& vist) {
     for (int i = 0; i < _size; i++) vist(_elem[i]);
 }

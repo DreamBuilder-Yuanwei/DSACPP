@@ -23,10 +23,10 @@ class Vector {
     void expand();  // 扩容
     void shrink();  // 缩容
     void merge(Rank lo, Rank mid, Rank hi);  // 二路归并
-    void mergeSorted(Rank lo, Rank hi);  // 归并排序
-    Rank binSearchA(Rank lo, Rank hi) const;  // 二分查找A版本
-    Rank binSearchB(Rank lo, Rank hi) const;  // 二分查找B版本
-    Rank binSearchC(Rank lo, Rank hi) const;  // 二分查找C版本
+    void mergeSort(Rank lo, Rank hi);  // 归并排序
+    Rank binSearchA(T const& e, Rank lo, Rank hi) const;  // 二分查找A版本
+    Rank binSearchB(T const& e, Rank lo, Rank hi) const;  // 二分查找B版本
+    Rank binSearchC(T const& e, Rank lo, Rank hi) const;  // 二分查找C版本
 
  public:
     // 构造
