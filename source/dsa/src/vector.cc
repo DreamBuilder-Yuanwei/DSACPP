@@ -103,6 +103,21 @@ Rank Vector<T>::binSearchC(T const& e, Rank lo, Rank hi) const {
     return lo - 1;
 }
 
+// 判断两向量是否相等
+template<typename T>bool Vector<T>::operator==(Vector<T> const& v) const {
+    if (_size != v.size()) return false;
+    for (int i = 0; i < _size; i++)
+        if (_elem[i] != v[i]) return false;
+    return true;
+}
+
+// 判断向量是否有序
+template<typename T>bool Vector<T>::sorted() {
+    for (int i = 1; i < _size; i++)
+        if (_elem[i] < _elem[i - 1]) return false;
+    return true;
+}
+
 // 重载下标运算符, 可作为左值
 template<typename T> T& Vector<T>::operator[](Rank r) {
     return _elem[r];

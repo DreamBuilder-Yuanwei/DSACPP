@@ -7,4 +7,12 @@
 
 #pragma once
 
+template<typename T>
+struct Decrease{
+    void operator()(T &e) { e--;}
+};
+
+template<typename T> void increase(T &e) { e++; }
+
 void lcs_test();
+void vector_test();
