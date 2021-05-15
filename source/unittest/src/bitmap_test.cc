@@ -14,7 +14,11 @@ void bitmap_test() {
     bm.set(2);
     bm.set(22);
     bm.set(42);
-    assert(bm.test(2) && bm.test(22) && bm.test(42) && false == bm.test(0) && false == bm.test(256));
+    assert(true == bm.test(2));
+    assert(true == bm.test(22));
+    assert(true == bm.test(42));
+    assert(false == bm.test(0));
+    assert(false == bm.test(256));
 
     bm.clear(22);
     assert(false == bm.test(22));
