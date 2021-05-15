@@ -15,7 +15,7 @@
 
 const int test_len = 99;
 const int max_data = 999;
-int A[test_len];
+static int A[test_len];
 
 void vector_test() {
     printf("vector_test begin!------>\n");

@@ -11,7 +11,7 @@
 #include "include/timer.h"
 #include "include/longest_common_subsequence.h"
 
-char A[max_len], B[max_len], lcs[max_len];
+static char A[max_len], B[max_len], lcs[max_len];
 int table[max_len + 1][max_len + 1];
 
 void lcs_test() {
