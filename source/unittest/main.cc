@@ -9,8 +9,13 @@
 #include "include/unittest.h"
 
 int main() {
+    /*
     printf("now start to run lcs_test--->\n");
     lcs_test();
     printf("<---lcs_test end!\n");
+    */
+    printf("now start to run vector_test--->\n");
+    vector_test();
+    printf("<---vector_test end!\n");
     return 0;
 }

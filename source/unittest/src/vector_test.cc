@@ -5,8 +5,6 @@
  * Copyright (c) 2021-2050. All rights reserved.
  ******************************************************************************************/
 
-#pragma once
-
 #include <ctime>
 #include <cstdio>
 #include <cstdlib>
@@ -20,18 +18,18 @@ const int max_data = 999;
 int A[test_len];
 
 void vector_test() {
-    printf("vector_test begin!------>\n")
+    printf("vector_test begin!------>\n");
     srand(time(NULL));  // 设置随机数种子
     // 随机生成长度为test_len的数组A
     for (int i = 0; i < test_len; i++) A[i] = rand() % test_len;
     // 显示A中各元素, 格式：|序号 : 数值|
     printf("A is an array of type int with %d elements:\n", test_len);
-    for (int i = 0; i < test_len; i++) print("|%d : %4d| ", i, A[i]);
+    for (int i = 0; i < test_len; i++) printf("|%d : %4d| ", i, A[i]);
     printf("\n");
 
     // 测试构造函数
     Vector<int> v0(3, 0, 0);
-    assert(v0.size() == 0 && v0.empty()) == true);
+    assert(v0.size() == 0 && v0.empty() == true);
     Vector<int> v1(A, test_len);
     assert(v1.size() == test_len && v1.empty() == false);
     int r1 = rand() % test_len, r2 = rand() % test_len;
@@ -101,7 +99,15 @@ void vector_test() {
 
     // 测试遍历接口
     v1.traverse(increase);
+    printf("vector increase, result:\n");
+    for (int i = 0; i < v1.size(); i++) printf("|%d : %4d| ", i, v1[i]);
+    printf("\n");
     v3.traverse(Decrease<int>());
+    printf("vector decrease, result:\n");
+    for (int i = 0; i < v3.size(); i++) printf("|%d : %4d| ", i, v3[i]);
+    printf("\n");
 
-    printf("<------vector_test end!\n")
+    printf("<------vector_test end!\n");
+
+    return;
 }

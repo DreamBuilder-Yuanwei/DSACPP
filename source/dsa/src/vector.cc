@@ -112,7 +112,7 @@ template<typename T>bool Vector<T>::operator==(Vector<T> const& v) const {
 }
 
 // 判断向量是否有序
-template<typename T>bool Vector<T>::sorted() {
+template<typename T>bool Vector<T>::sorted() const {
     for (int i = 1; i < _size; i++)
         if (_elem[i] < _elem[i - 1]) return false;
     return true;
@@ -203,6 +203,6 @@ template<typename T> void Vector<T>::traverse(void(*vist) (T&)) {
     for (int i = 0; i < _size; i++) vist(_elem[i]);
 }
 // 遍历-函数对象
-template<typename T> template<typename VST> void Vector<T>::traverse(VST& vist) {
+template<typename T> template<typename VST> void Vector<T>::traverse(VST vist) {
     for (int i = 0; i < _size; i++) vist(_elem[i]);
 }

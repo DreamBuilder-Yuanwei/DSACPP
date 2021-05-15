@@ -56,19 +56,20 @@ class Vector {
         delete [] _elem;
     }
     // 获取向量规模
-    int size() { return _size; }
+    int size() const { return _size; }
     // 判断向量是否为空
-    bool empty() { return 0 == _size; }
+    bool empty() const { return 0 == _size; }
     // 判断两向量是否相等
     bool operator==(Vector<T> const& b) const;
     // 获取数据域
-    T* _carray() { return _elem; }
+    T const* _carray() const { return _elem; }
     // 重载=号
     Vector<T>& operator=(Vector<T> const& v) {
-        copyFrom(v._carray, 0, v.size());
+        copyFrom(v._carray(), 0, v.size());
+	return *this;
     }
     // 判断向量是否有序
-    bool sorted();
+    bool sorted() const;
     // 重载下标运算符
     T& operator[](Rank r);  // 左值
     const T& operator[](Rank r) const;  // 右值
@@ -92,9 +93,10 @@ class Vector {
     Rank search(T const& e) const { return search(e, 0, _size); }  // 有序向量整体查找
     Rank search(T const& e, Rank lo, Rank hi) const;  // 有序向量区间查找
     // 排序
-    void sort(Rank lo = 0, Rank hi = _size) { mergeSort(lo, hi) }
+    void sort(Rank lo, Rank hi) { mergeSort(lo, hi); }  // 区间排序
+    void sort() { sort(0, _size); }  // 整体排序
     // 遍历
     void traverse(void(*) (T&));  // 函数指针
-    template<typename VST> void traverse(VST&);  // 函数对象
+    template<typename VST> void traverse(VST);  // 函数对象
 };  // Vector
 
