@@ -6,10 +6,6 @@ export ALGORITHM_DIR = $(TOP_DIR)/algorithm
 .PHONY: all clean
 
 all:
-	@echo "make libdsa.so start!"
-	$(MAKE) -C $(DSA_DIR) all
-	@echo "make libdsa.so end!"
-
 	@echo "make libalgorithm.so start!"
 	$(MAKE) -C $(ALGORITHM_DIR) all
 	@echo "make libalgorithm.so end!"
@@ -20,7 +16,6 @@ all:
 
 clean:
 	@echo "make clean start!"
-	$(MAKE) -C $(DSA_DIR) clean
 	$(MAKE) -C $(ALGORITHM_DIR) clean
 	$(MAKE) -C $(UNITTEST_DIR) clean
 	@echo "make clean end!"

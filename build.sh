@@ -6,12 +6,8 @@
 # |    |-algorithm
 # |        |-include
 # |        |-src
-# |        |-problems
 # |        |-Makefile
 # |    |-dsa
-# |         |-include
-# |         |-src
-# |         |-Makefile
 # |    |-unittest
 # |         |-_input
 # |         |-_output

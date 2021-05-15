@@ -9,9 +9,9 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cassert>
-#include "include/timer.h"
-#include "include/vector.h"
 #include "include/unittest.h"
+#include "include/timer.h"
+#include "vector.h"
 
 const int test_len = 99;
 const int max_data = 999;

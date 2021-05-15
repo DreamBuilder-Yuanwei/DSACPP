@@ -1,7 +1,7 @@
 TOP_DIR=$(shell pwd)
 INCLUDE_PATH=-I$(TOP_DIR) -I$(DSA_DIR) -I$(ALGORITHM_DIR)
-LIB_PATH=-L$(DSA_DIR) -L$(ALGORITHM_DIR)
-LIB=-Wl,-Bdynamic -lalgorithm -ldsa
+LIB_PATH=-L$(ALGORITHM_DIR)
+LIB=-Wl,-Bdynamic -lalgorithm
 TARGET=dsacpp
 SOURCE=$(TOP_DIR)/main.cc $(TOP_DIR)/src/*.cc
 
