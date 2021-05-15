@@ -243,6 +243,7 @@ template<typename T> Rank Vector<T>::insert(Rank r, T const& e) {
     expand();
     for (int i = _size; i > r; i--) _elem[i] = _elem[i - 1];
     _elem[r] = e;
+    _size++;
     return r;
 }
 
@@ -271,7 +272,7 @@ template<typename T> int Vector<T>::deduplicate() {
 template<typename T> int Vector<T>::uniquify() {
     int old_size = _size;
     _size = 0;
-    for (int i = 1; i < _size; i++)
+    for (int i = 1; i < old_size; i++)
         if (_elem[_size] != _elem[i]) _elem[++_size] = _elem[i];
     return old_size - ++_size;
 }

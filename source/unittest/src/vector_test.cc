@@ -46,7 +46,7 @@ void vector_test() {
 
     // 测试删除接口
     int e = v3.remove(0);
-    assert(e == v3[0] && v3[0] == v1[1] && v3.size() == v1.size() - 1);
+    assert(e == v1[0] && v3[0] == v1[1] && v3.size() == v1.size() - 1);
     int k = v3.remove(0, 20);
     assert(k == 20);
 
@@ -77,13 +77,13 @@ void vector_test() {
     // 测试去重接口
     v2.sort();
     Timer timer;
-    int d1 = v1.deduplicate();
-    printf("deduplicate unsorted vector, spend time: %.3lfms, result:\n", timer.spend_time_micro());
-    for (int i = 0; i < v1.size(); i++) printf("|%d : %4d| ", i, v1[i]);
+    int d1 = v3.deduplicate();
+    printf("deduplicate unsorted vector, spend time--%.3lfms, result--%d duplicated elements:\n", timer.spend_time_micro(), d1);
+    for (int i = 0; i < v3.size(); i++) printf("|%d : %4d| ", i, v3[i]);
     printf("\n");
     timer.reset();
     int d2 = v2.uniquify();
-    printf("uniquify sorted vector, spend time: %.3lfms, result:\n", timer.spend_time_micro());
+    printf("uniquify sorted vector, spend time--%.3lfms, result--%d duplicated elements:\n", timer.spend_time_micro(), d2);
     for (int i = 0; i < v2.size(); i++) printf("|%d : %4d| ", i, v2[i]);
     printf("\n");
     assert(d1 == d2);
@@ -92,10 +92,10 @@ void vector_test() {
     // 测试查找接口
     e = rand() % max_data;
     int r = v1.find(e);
-    assert(e == v1[r]);
+    assert(v1[r] <= e);
     v2.sort();
     r = v2.search(e);
-    assert(e == v2[r]);
+    assert(v2[r] <= e);
 
     // 测试遍历接口
     v1.traverse(increase);
