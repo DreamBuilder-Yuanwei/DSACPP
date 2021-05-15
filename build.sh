@@ -86,6 +86,7 @@ function setup_variants() {
     MY_DSA_SO=$MY_SOURCE_DIR/dsa/libdsa.so
     MY_ALGORITHM_SO=$MY_SOURCE_DIR/algorithm/libalgorithm.so
     MY_TARGET_DIR=$MY_PWD/target
+    MY_OUTPUT_DATA_DIR=$MY_SOURCE_DIR/unittest/_output
     MY_BIN_DIR=$MY_TARGET_DIR/bin
     MY_LIB_DIR=$MY_TARGET_DIR/lib
 }
@@ -107,6 +108,7 @@ function build() {
 function clean() {
     echo "[log] `date +"%F %T"` start cleaning..."
     rm -rf $MY_TARGET_DIR
+    rm -rf $MY_OUTPUT_DATA_DIR/*
     make -C $MY_SOURCE_DIR clean >/dev/null 2>&1
     if [ $? == 0 ]
     then
