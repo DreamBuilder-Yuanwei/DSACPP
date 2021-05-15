@@ -14,8 +14,13 @@ int main() {
     lcs_test();
     printf("<---lcs_test end!\n");
     */
+    /*
     printf("now start to run vector_test--->\n");
     vector_test();
     printf("<---vector_test end!\n");
+    */
+    printf("bitmap_test begin!--->\n");
+    bitmap_test();
+    printf("<---bitmap_test end!\n");
     return 0;
 }
