@@ -7,7 +7,7 @@
 #pragma once
 
 #include <cstdlib>
-#include "include/list_node.h"
+#include "list_node.h"
 
 // 双向列表
 template<typename T> class List {
