@@ -19,8 +19,13 @@ int main() {
     vector_test();
     printf("<---vector_test end!\n");
     */
-    printf("bitmap_test begin!--->\n");
+    /*
+    printf("now start to run bitmap_test--->\n");
     bitmap_test();
     printf("<---bitmap_test end!\n");
+    */
+    printf("now start to run ssbg_test--->");
+    ssbg_test();
+    printf("<---ssbg_test end!\n");
     return 0;
 }

@@ -5,19 +5,14 @@
  * Copyright (c) 2021-2050. All rights reserved.
  ******************************************************************************************/
 
-#pragma once
+#include <cstdlib>
+#include "include/timer.h"
+#include "include/unittest.h"
+#include "include/small_set_big_data.h"
 
-template<typename T>
-struct Decrease{
-    void operator()(T &e) { e--;}
-};
-template<typename T> void increase(T &e) { e++; }
-
-// 最长公共子序列(LCS)算法的测试函数
-void lcs_test();
-// 向量的测试函数
-void vector_test();
-// 位图的测试函数
-void bitmap_test();
-// 小集合+大数据算法测试函数
-void ssbg_test();
+void ssbg_test() {
+    Timer timer;
+    __int32 result = ssbg();
+    printf("function ssbg--result: %d, spend time: %.3lfms\n", result, timer.spend_time_micro());
+    return;
+}
