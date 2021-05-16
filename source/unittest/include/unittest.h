@@ -21,3 +21,5 @@ void vector_test();
 void bitmap_test();
 // 小集合+大数据算法测试函数
 void ssbg_test();
+// eratosthenes筛法求素数测试
+void eratosthenes_test();
