@@ -125,9 +125,10 @@ function inject() {
     check_file_exist $MY_DSACPP_BIN
     check_dir_exist $MY_BIN_DIR
     cp -rf $MY_DSACPP_BIN $MY_BIN_DIR
+    check_file_exist $MY_DSA_SO
     check_file_exist $MY_ALGORITHM_SO
     check_dir_exist $MY_LIB_DIR
-    cp -rf $MY_ALGORITHM_SO $MY_LIB_DIR
+    cp -rf $MY_DSA_SO $MY_ALGORITHM_SO $MY_LIB_DIR
     export LD_LIBRARY_PATH=$MY_LIB_DIR:$LD_LIBRARY_PATH
     echo "[log] `date +"%F %T"` inject success !!!"
 }

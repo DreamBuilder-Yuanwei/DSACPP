@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "bitmap.h"
+#include "include/bitmap.h"
 
 // eratosthenes筛法求素数
 // 计算不大于n的所有素数

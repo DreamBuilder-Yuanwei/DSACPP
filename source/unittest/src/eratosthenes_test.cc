@@ -5,7 +5,7 @@
  * Copyright (c) 2021-2050. All rights reserved.
  ******************************************************************************************/
 
-#include "bitmap.h"
+#include "include/bitmap.h"
 #include "include/unittest.h"
 #include "include/eratosthenes.h"
 

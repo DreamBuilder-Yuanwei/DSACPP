@@ -11,7 +11,7 @@
 #include <cassert>
 #include "include/unittest.h"
 #include "include/timer.h"
-#include "vector.h"
+#include "include/vector.h"
 
 const int test_len = 99;
 const int max_data = 999;

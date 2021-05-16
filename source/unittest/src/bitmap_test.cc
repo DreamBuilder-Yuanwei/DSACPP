@@ -7,7 +7,7 @@
 
 #include <cassert>
 #include <cstring>
-#include "bitmap.h"
+#include "include/bitmap.h"
 
 void bitmap_test() {
     Bitmap bm(32);
