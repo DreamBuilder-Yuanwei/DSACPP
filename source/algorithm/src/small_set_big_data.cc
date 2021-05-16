@@ -6,8 +6,7 @@
 
 #include <ctime>
 #include <cstdio>
-#include <cstdlib>
-#include "bitmap.h"
+#include <cstdlib>S
 #include "include/small_set_big_data.h"
 
 // 小集合+大数据问题：
