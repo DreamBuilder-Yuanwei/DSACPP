@@ -5,6 +5,7 @@
  * Copyright (c) 2021-2050. All rights reserved.
  ******************************************************************************************/
 
+#include <cstdio>
 #include <cstdlib>
 #include "include/timer.h"
 #include "include/unittest.h"
@@ -12,7 +13,7 @@
 
 void ssbg_test() {
     Timer timer;
-    __int32 result = ssbg();
-    printf("function ssbg--result: %d, spend time: %.3lfms\n", result, timer.spend_time_micro());
+    __int32_t result = ssbd();
+    printf("function ssbd--result: %d, spend time: %.3lfms\n", result, timer.spend_time_micro());
     return;
 }

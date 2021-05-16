@@ -24,8 +24,8 @@ int main() {
     bitmap_test();
     printf("<---bitmap_test end!\n");
     */
-    printf("now start to run ssbg_test--->");
+    printf("now start to run ssbd_test--->");
     ssbg_test();
-    printf("<---ssbg_test end!\n");
+    printf("<---ssbd_test end!\n");
     return 0;
 }
