@@ -1,5 +1,5 @@
 /******************************************************************************************
- * Data Structures Algorithm in CPP
+ * Data Structures and Algorithm in CPP
  * https://github.com/DreamBuilder-Yuanwei/DSACPP
  * Yuanwei XIE, xywcst@gmail.com
  * Copyright (c) 2021-2050. All rights reserved.
@@ -7,6 +7,7 @@
 #pragma once
 
 #include <cstdlib>
+#include "include/algorithm.h"
 #include "include/list_node.h"
 
 // 双向列表
@@ -66,74 +67,85 @@ template<typename T> class List {
         return NULL != p && header != p && trailer != p;
     }
 
+    // 对列表中起始于位置p, 宽度为n的区间做选择排序
+    void selectionSort(ListNodePosi<T> p, int n);
+
+    // 选择列表中始于位置p, 宽度为n的区间中的最大元素
+    ListNodePosi<T> selectMax(ListNodePosi<T> p, int n);
+
+    // 对列表中起始于位置p, 宽度为n的区间做插入排序
+    void insertionSort(ListNodePosi<T> p, int n);
+
+    // 对列表中起始于位置p, 宽度为n的区间做归并排序
+    void mergeSort(ListNodePosi<T> p, int n);
+
+    // 将列表中起始于位置p的n个元素与列表L中起始于位置q的m个元素归并
+    ListNodePosi<T> merge(ListNodePosi<T> p, int n, List<T> &L, ListNodePosi<T> q, int m);
+
     // 插入为首节点
     ListNodePosi<T> insertAsFirst(T const& e) {
-        header->insertAsSucc(e);
         _size++;
-	return header->succ;
+        return header->insertAsSucc(e);
     }
 
     // 插入为末节点
     ListNodePosi<T> insertAsLast(T const& e) {
-        trailer->insertAsPred(e);
         _size++;
-	return trailer->pred;
+        return trailer->insertAsPred(e);
     }
 
     // 在位置p前插入
     ListNodePosi<T> insertBefore(T const& e, ListNodePosi<T> p) {
-        p->insertAsPred(e);
         _size++;
-	return p->pred;
+        return p->insertAsPred(e);
     }
 
     // 在位置p后插入
     ListNodePosi<T> insertAfter(ListNodePosi<T> p, T const& e) {
-        p->insertAsSucc(e);
         _size++;
-	return p->succ;
+        return p->insertAsSucc(e);
     }
 
     T remove(ListNodePosi<T>);  // 删除节点并返回该节点数据
     bool disorder() const;  // 判断列表是否有序
 
-    // 在当前有序列表中查找
-    // 返回最后一个不大于e的元素的位置
-    // 失败返回NULL
-    // n > 0 向后, n < 0 向前, n == 0 非法 返回失败
-    ListNodePosi<T> findSorted(T const&,
-     ListNodePosi<T> p = first(), int n = size()) const;
+    // 在整个列表中查找元素e
+    // 成功-返回最后一个等于e的元素的位置, 失败-返回NULL
+    ListNodePosi<T> find(T const& e) const { return find(e, _size, trailer); }
 
-    // 在当前无序列表中查找
-    // 返回最后一个等于e的元素的位置
-    // 失败返回NULL
-    // n > 0 向后, n < 0 向前, n == 0 非法 返回失败
-    ListNodePosi<T> findUnsorted(T const&,
-     ListNodePosi<T> p = first(), int n = size()) const;
+    // 在位置p之后n个元素中查找元素e
+    // 成功-返回最后一个等于e的元素的位置, 失败-返回NULL
+    ListNodePosi<T> find(T const& e, ListNodePosi<T> p, int n) const;
 
-    // 在当前列表(不区分是否有序)中查找
-    ListNodePosi<T> find(T const& e,
-     ListNodePosi<T> p = first(), int n = size()) const {
-        return true == disorder() ?
-        findUnsorted(e, p, n) : findSorted(e, p, n);
+    // 在位置p之前n个元素中查找元素e
+    // 成功-返回最后一个等于e的元素的位置, 失败-返回NULL
+    ListNodePosi<T> find(T const& e, int n, ListNodePosi<T> p) const;
+
+    // 查找
+    // 成功-返回最后一个不大于e的元素的位置, 失败-返回NULL
+    ListNodePosi<T> search(T const& e) const {
+        return search(e, _size, trailer);
     }
 
-    // 对当前有序列表去重
-    // 返回被去除元素的个数
-    int deduplicateSorted() const;
+    // 查找
+    // 成功-返回最后一个不大于e的元素的位置, 失败-返回NULL
+    ListNodePosi<T> search(T const& e, ListNodePosi<T> p, int n) const;
+
+    // 查找
+    // 成功-返回最后一个不大于e的元素的位置, 失败-返回NULL
+    ListNodePosi<T> search(T const& e, int n, ListNodePosi<T> p) const;
 
     // 对当前无序列表去重
     // 返回被去除元素的个数
-    int deduplicateUnsorted() const;
+    int deduplicate();
 
-    // 对当前列表去重(不区分是否有序)
-    int deduplicate() {
-        return true == disorder() ? deduplicateSorted() : deduplicateUnsorted();
-    }
+    // 对当前有序列表去重
+    // 返回被去除元素的个数
+    int uniquify();
 
     // 遍历列表并操作各节点的数据成员
     void traverse(void (* vist)(T &));
-    template<typename VST> void traverse(VST const& vist);
+    template<typename VST> void traverse(VST vist);
 
     // 重载下标运算符[]
     T & operator[] (Rank r);
@@ -150,29 +162,39 @@ template<typename T> void List<T>::init() {
     header->succ = trailer;
     trailer->pred = header;
     trailer->succ = NULL;
+    return;
+}
+
+// 重载下标运算符[]
+template<typename T> T List<T>::operator[] (Rank r) const {
+    ListNodePosi<T> p = first();
+    while (0 < r--) p = p->succ;
+    return p->data;
 }
 
 // 清空列表
 template<typename T> void List<T>::clear() {
-    ListNodePosi<T> p = header->succ, q;
-    while (p != trailer) {
+    ListNodePosi<T> p = first(), q = NULL;
+    while (valid(p)) {
         q = p->succ;
         delete p;
+        _size--;
         p = q;
     }
-    _size = 0;  // 更新规模为0
+    return;
 }
 
 // 拷贝从位置p开始的n个节点到当前列表
 template<typename T> void List<T>::copyNodes(ListNodePosi<T> p, int n) {
-    while (n-- && NULL != p) {
-        trailer->insertAsPred(p->data);
+    while (n--) {
+        insertAsLast(p->data);
         p = p->succ;
-        _size++;
     }
+    return;
 }
 
 // 删除位置p处的节点
+// 返回其数值
 template<typename T> T List<T>::remove(ListNodePosi<T> p) {
     T e = p->data;
     p->succ->pred = p->pred;
@@ -186,8 +208,8 @@ template<typename T> T List<T>::remove(ListNodePosi<T> p) {
 // 判断当前列表是否有序
 template<typename T> bool List<T>::disorder() const {
     if (_size < 2) return true;  // 空列表或者只有一个节点的列表自然有序
-    ListNodePosi<T> p = header->succ, q = p->succ;
-    while (q != trailer) {
+    ListNodePosi<T> p = first(), q = p->succ;
+    while (valid(q)) {
         if (q->data < p->data) return false;  // 出现逆序对时, 立即返回false
         p = q;
         q = q->succ;
@@ -195,119 +217,164 @@ template<typename T> bool List<T>::disorder() const {
     return true;  // 不存在逆序对, 列表有序
 }
 
-// 在当前有序列表中查找
-// 返回最后一个不大于e的元素的位置
-// 失败返回NULL
-// n > 0 向后, n < 0 向前, n == 0 非法 返回失败
-template<typename T> ListNodePosi<T>
- List<T>::findSorted(T const& e, ListNodePosi<T> p, int n) const {
-    if (0 == n || !valid(p)) return NULL;
-    int k = 1;
-    if (n < 0) {  // 统一从后往前查找, 方便返回最后一个不大于e的元素的位置
-        k = -n;
-    } else {
-        while (k < n && valid(p)) {
-            p = p->succ;
-            k++;
-        }
-        if (!valid(p)) {
-            k--;
-            p = p->pred;
-        }
-    }
-    while (k-- && valid(p)) {
-        if (p->data <= e) return p;  // 命中, 返回
-        p = p->pred;
-    }
-    return NULL;  // 查找失败
+// 查找
+// 成功-返回最后一个等于e的元素的位置, 失败-返回NULL
+template<typename T>
+ListNodePosi<T> List<T>::find(T const& e,
+    ListNodePosi<T> p, int n) const {
+    while (0 < n--)
+        if (e == (p = p->succ)->data) return p;
+    return NULL;
 }
 
-// 在当前无序列表中查找
-// 返回最后一个等于e的元素的位置
-// 失败返回NULL
-// n > 0 向后, n < 0 向前, n == 0 非法 返回失败
-template<typename T> ListNodePosi<T> List<T>::findUnsorted(T const& e,
- ListNodePosi<T> p, int n) const {
-    if (0 == n || !valid(p)) return NULL;
-    int k = 1;
-    if (n < 0) {  // 统一从后往前查找, 方便返回最后一个等于e的元素的位置
-        k = -n;
-    } else {
-        while (k < n && valid(p)) {
-            p = p->succ;
-            k++;
-        }
-        if (!valid(p)) {
-            k--;
-            p = p->pred;
-        }
-    }
-    while (k-- && valid(p)) {
-        if (p->data == e) return p;  // 命中, 返回
-        p = p->pred;
-    }
-    return NULL;  // 查找失败
+// 查找
+// 成功-返回最后一个等于e的元素的位置, 失败-返回NULL
+template<typename T>
+ListNodePosi<T> List<T>::find(T const& e,
+    int n, ListNodePosi<T> p) const {
+    while (0 < n--)
+        if (e == (p = p->pred)->data) return p;
+    return NULL;
 }
 
-// 对当前有序列表去重
-// 最后保留重复元素中位置最靠后的元素
-// 返回被去除元素的个数
-template <typename T> int List<T>::deduplicateSorted() const {
-    int old_size = _size;
-    ListNodePosi<T> p = header->succ, q = p->succ;
-    while (q != trailer) {
-        if (p->data == q->data) remove(p);  // 应该删除p而非q所指向的元素
-        p = q;
-        q = q->succ;
-    }
-    return old_size - _size;
+// 查找
+// 成功-返回最后一个不大于e的元素的位置, 失败-返回NULL
+template<typename T>
+ListNodePosi<T> List<T>::search(T const& e, ListNodePosi<T> p, int n) const {
+    do {
+        p = p->succ;
+        n--;
+    } while (-1 < n && p->data <= e);
+    return valid(p->pred) ? p->pred : NULL;
+}
+
+// 查找
+// 成功-返回最后一个不大于e的元素的位置, 失败-返回NULL
+template<typename T>
+ListNodePosi<T> List<T>::search(T const& e, int n, ListNodePosi<T> p) const {
+    do {
+        p = p->pred;
+        n--;
+    } while (-1 < n && e < p->data);
+    return valid(p) ? p : NULL;
 }
 
 // 对当前无序列表去重
-// 最后保留重复元素中位置最靠前的元素
 // 返回被去除元素的个数
-template <typename T> int List<T>::deduplicateUnsorted() const {
+template<typename T> int List<T>::deduplicate() {
+    if (_size < 2) return 0;  // 平凡列表自然无重复
     int old_size = _size;
-    ListNodePosi<T> p = header->succ, q = NULL;
-    while (p != trailer) {
-        if (NULL != findUnsorted(p->data, header->succ, p - header->succ + 1)) {
-            q = p;
-            remove(p);  // 应该删除p而非q所指向的元素
-        }
-        p = q->succ;
-    }
+    ListNodePosi<T> p = first();
+    for (Rank r = 0; p != trailer; p = p->succ)
+        if (ListNodePosi<T> q = find(p->data, r, p))
+            remove(q);
+        else
+            r++;
+    return old_size - _size;
+}
+
+// 对当前有序列表去重
+// 返回被去除元素的个数
+template<typename T> int List<T>::uniquify() {
+    if (_size < 2) return 0;  // 平凡列表自然无重复
+    int old_size = _size;
+    ListNodePosi<T> p = first();
+    ListNodePosi<T> q = NULL;
+    while (trailer != (q = p->succ))
+        if (p->data == q->data)
+            remove(q);
+        else
+            p = q;
     return old_size - _size;
 }
 
 // 遍历列表并操作各节点的数据成员
-template<typename T> void List<T>::traverse(void (* vist)(T & e)) {
-    ListNodePosi<T> p = header->succ;
-    while (p != trailer) {
+template<typename T> void List<T>::traverse(void (* vist)(T &)) {
+    ListNodePosi<T> p = first();
+    while (valid(p)) {
         vist(p->data);
         p = p->succ;
     }
+    return;
 }
 
 template<typename T> template<typename VST>
- void List<T>::traverse(VST const& vist) {
-     ListNodePosi<T> p = header->succ;
-     while (p != trailer) {
-         vist(p->data);
-         p = p->succ;
-     }
+ void List<T>::traverse(VST vist) {
+    ListNodePosi<T> p = first();
+    while (valid(p)) {
+        vist(p->data);
+        p = p->succ;
+    }
+    return;
 }
 
-// 重载下标运算符[]
-// 下标支持负数
-// eg:
-// Assume we have a list l = [0, 1, 2, 3]
-// l[-1] == 3
-// l[3] == 3
-template<typename T> T& List<T>::operator[] (Rank r) {
-    if (r < 0 - _size || _size <= r) exit(-1);
-    if (r < 0) r = _size + r;
-    ListNodePosi<T> p = header->succ;
-    while (r--) p = p->succ;
-    return p->data;
+// 选择列表中始于位置p, 宽度为n的区间中的最大元素
+template<typename T>
+ListNodePosi<T> List<T>::selectMax(ListNodePosi<T> p, int n) {
+    ListNodePosi<T> q = p;
+    while (0 < --n)
+        if (q->data <= (p = p->succ)->data) q = p;
+    return q;
 }
 
+// 对列表中起始于位置p, 宽度为n的区间做选择排序
+template<typename T> void List<T>::selectionSort(ListNodePosi<T> p, n) {
+    ListNodePosi<T> head = p->pred, tail = p;
+    for (int i = 0; i < n; i++)
+        tail = tail->succ;
+    while (1 < n) {
+        ListNodePosi<T> q = selectMax(head->succ, n);
+        swap(q->data, (tail = tail->pred)->data);
+        n--;
+    }
+    return;
+}
+
+// 对列表中起始于位置p, 宽度为n的区间做插入排序
+template(typename T) void List<T>::insertionSort(ListNodePosi<T> p, int n) {
+    for (int r = 0; r < n; r++) {
+        insertA(search(p->data, r, p), p->data);
+        p = p->succ;
+        remove(p->pred);
+    }
+    return;
+}
+
+// 对列表中起始于位置p, 宽度为n的区间做归并排序
+template<typename T> void List<T>::mergeSort(ListNodePosi<T> p, int n) {
+    if (n < 2) return;
+    ListNodePosi<T> q = p;
+    int k = n >> 1;
+    for (int i = 0; i < k; i++) q = q->succ;
+    mergeSort(p, k);
+    mergeSort(q, n - k);
+    merge(p, k, *this, q, n - k);
+    return;
+}
+
+// 将列表中起始于位置p的n个元素与列表L中起始于位置q的m个元素归并
+template<typename T>
+ListNodePosi<T> List<T>::merge(ListNodePosi<T> p, int n, List<T> &L, ListNodePosi<T> q, int m) {
+    ListNodePosi<T> head = p->pred;
+    ListNodePosi<T> head_L = q->pred;
+    while (0 < n && 0 < m)
+        if (p->data <= q->data) {
+            p = p->succ;
+            n--;
+        } else {
+            ListNodePosi<T> qq = q->succ;
+            insertB(p, L.remove(q));
+            q = qq;
+            m--;
+        }
+    if (&L != this) {
+        while (0 < m) {
+            ListNodePosi<T> qq = q->succ;
+            insertB(p, L.remove(q));
+            q = qq;
+            m--;
+        }
+        head_L->succ = q;
+    }
+    return head->succ;
+}
