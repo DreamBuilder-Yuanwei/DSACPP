@@ -23,3 +23,5 @@ void bitmap_test();
 void ssbg_test();
 // eratosthenes筛法求素数测试
 void eratosthenes_test();
+// 求逆序对算法的测试函数
+void inversion_test();
