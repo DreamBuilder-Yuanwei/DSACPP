@@ -51,7 +51,7 @@ void list_test() {
     assert(l1.size() == MAX_LEN + 4);
     // 并将其打印
     printf("The random list:\n");
-    ListNodePosi<T> p = l1.first();
+    ListNodePosi<int> p = l1.first();
     while (l1.valid(p)) {
         printf("%4d ");
         p = p->succ;
@@ -84,7 +84,7 @@ void list_test() {
     assert(l1 == l2 && l1 == l3);
     // 打印排序后的列表
     printf("The sorted list:\n");
-    ListNodePosi<T> p = l1.first();
+    ListNodePosi<int> p = l1.first();
     while (l1.valid(p)) {
         printf("%4d ");
         p = p->succ;
@@ -105,7 +105,7 @@ void list_test() {
     assert(l4.size() == 0 && l4.empty() == true);
     // 打印归并后的列表
     printf("The merged list:\n");
-    ListNodePosi<T> p = l1.first();
+    ListNodePosi<int> p = l1.first();
     while (l1.valid(p)) {
         printf("%4d ");
         p = p->succ;
@@ -120,7 +120,7 @@ void list_test() {
     // 测试traverse接口
     l1.traverse(increase);
     printf("The increased list:\n");
-    ListNodePosi<T> p = l1.first();
+    ListNodePosi<int> p = l1.first();
     while (l1.valid(p)) {
         printf("%4d ");
         p = p->succ;
@@ -141,7 +141,7 @@ void list_test() {
     // 测试去重接口
     int num1 = l4.deduplicate();
     printf("The deduplicated list:\n");
-    ListNodePosi<T> p = l4.first();
+    ListNodePosi<int> p = l4.first();
     while (l4.valid(p)) {
         printf("%4d ");
         p = p->succ;
@@ -149,7 +149,7 @@ void list_test() {
     printf("\n");
     int num2 = l2.uniquify();
     printf("The uniquified list:\n");
-    ListNodePosi<T> p = l2.first();
+    ListNodePosi<int> p = l2.first();
     while (l2.valid(p)) {
         printf("%4d ");
         p = p->succ;
