@@ -79,8 +79,11 @@ void list_test() {
     l1.selectionSort(l1.first(), l1.size());
     l2.insertionSort(l2.first(), l2.size());
     l3.mergeSort(l3.first(), l3.size());
-    assert(l1.disorder() == true && l2.disorder() == true && l3.disorder() == true);
-    assert(l4.disorder() == false && l5.disorder() == false);
+    assert(l1.disorder() == true);
+    assert(l2.disorder() == true);
+    assert(l3.disorder() == true);
+    assert(l4.disorder() == false);
+    assert(l5.disorder() == false);
     assert(l1 == l2 && l1 == l3);
     // 打印排序后的列表
     printf("The sorted list:\n");
