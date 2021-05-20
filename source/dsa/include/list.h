@@ -364,26 +364,14 @@ template<typename T> void List<T>::mergeSort(ListNodePosi<T> p, int n) {
 template<typename T>
 ListNodePosi<T> List<T>::merge(ListNodePosi<T> p, int n, List<T> &L, ListNodePosi<T> q, int m) {
     ListNodePosi<T> head = p->pred;
-    ListNodePosi<T> head_L = q->pred;
-    while (0 < n && 0 < m)
-        if (p->data <= q->data) {
-            p = p->succ;
+    while ((0 < m) && (q != p)) {
+        if ((0 < n) && (p->data <= q->data)) {
+            if (q == (p = p->succ)) break;
             n--;
         } else {
-            ListNodePosi<T> qq = q->succ;
-            printf("%d\n", m);
-            insertBefore(L.remove(q), p);
-            q = qq;
+            insertBefore(p, L.remove((q = q->succ)->pred));
             m--;
         }
-    if (&L != this) {
-        while (0 < m) {
-            ListNodePosi<T> qq = q->succ;
-            insertBefore(L.remove(q), p);
-            q = qq;
-            m--;
-        }
-        head_L->succ = q;
     }
     return head->succ;
 }

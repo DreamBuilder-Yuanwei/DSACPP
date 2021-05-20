@@ -112,23 +112,8 @@ void list_test() {
     p = l3.selectMax(l3.first(), l3.size());
     assert(p == l3.last());
 
-    // 测试merge接口
-    l1.merge(l1.first(), l1.size(), l4, l4.first(), l4.size());
-    assert(l1.size() == l2.size() + l5.size());
-    assert(l4.size() == 0 && l4.empty() == true);
-    // 打印归并后的列表
-    printf("The merged list:\n");
-    p = l1.first();
-    while (l1.valid(p)) {
-        printf("%4d ", p->data);
-        p = p->succ;
-    }
-    printf("\n");
-
-    // l1 merged
-    // l2 == l3 sorted
+    // l1 == l2 == l3 sorted
     // l4 == l5 unsorted
-    l4 = l5;
 
     // 测试traverse接口
     l1.traverse(increase);
