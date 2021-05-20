@@ -6,6 +6,7 @@
  ******************************************************************************************/
 #pragma once
 
+#include <cstdio>
 #include <cstdlib>
 #include "include/algorithm.h"
 #include "include/list_node.h"
@@ -370,6 +371,7 @@ ListNodePosi<T> List<T>::merge(ListNodePosi<T> p, int n, List<T> &L, ListNodePos
             n--;
         } else {
             ListNodePosi<T> qq = q->succ;
+            printf("%d\n", m);
             insertBefore(L.remove(q), p);
             q = qq;
             m--;
