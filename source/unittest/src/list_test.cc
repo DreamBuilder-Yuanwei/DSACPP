@@ -79,6 +79,16 @@ void list_test() {
     l1.selectionSort(l1.first(), l1.size());
     l2.insertionSort(l2.first(), l2.size());
     l3.mergeSort(l3.first(), l3.size());
+    
+    // 打印排序后的列表
+    printf("The sorted list:\n");
+    p = l3.first();
+    while (l3.valid(p)) {
+        printf("%4d ", p->data);
+        p = p->succ;
+    }
+    printf("\n");
+
     assert(l1.disorder() == true);
     assert(l2.disorder() == true);
     assert(l3.disorder() == true);
