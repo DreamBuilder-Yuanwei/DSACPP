@@ -6,7 +6,7 @@ SOURCE=$(TOP_DIR)/src/*.cc
 all: $(TARGET)
 
 $(TARGET): $(SOURCE)
-	$(CXX) $(INCLUDE_PATH) -fPIC -shared -o $@ $^
+	$(CXX) $(INCLUDE_PATH) -g -fPIC -shared -o $@ $^
 
 .PHONY: clean
 clean:

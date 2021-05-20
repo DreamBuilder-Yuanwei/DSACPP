@@ -122,17 +122,17 @@ template<typename T> class List {
     ListNodePosi<T> find(T const& e, int n, ListNodePosi<T> p) const;
 
     // 查找
-    // 成功-返回最后一个不大于e的元素的位置, 失败-返回NULL
+    // 成功-返回最后一个不大于e的元素的位置, 有可能返回header
     ListNodePosi<T> search(T const& e) const {
         return search(e, _size, trailer);
     }
 
     // 查找
-    // 成功-返回最后一个不大于e的元素的位置, 失败-返回NULL
+    // 成功-返回最后一个不大于e的元素的位置, 有可能返回header
     ListNodePosi<T> search(T const& e, ListNodePosi<T> p, int n) const;
 
     // 查找
-    // 成功-返回最后一个不大于e的元素的位置, 失败-返回NULL
+    // 成功-返回最后一个不大于e的元素的位置, 有可能返回header
     ListNodePosi<T> search(T const& e, int n, ListNodePosi<T> p) const;
 
     // 对当前无序列表去重
@@ -245,25 +245,25 @@ ListNodePosi<T> List<T>::find(T const& e,
 }
 
 // 查找
-// 成功-返回最后一个不大于e的元素的位置, 失败-返回NULL
+// 成功-返回最后一个不大于e的元素的位置, 有可能返回header
 template<typename T>
 ListNodePosi<T> List<T>::search(T const& e, ListNodePosi<T> p, int n) const {
     do {
         p = p->succ;
         n--;
     } while (-1 < n && p->data <= e);
-    return valid(p->pred) ? p->pred : NULL;
+    return p->pred;
 }
 
 // 查找
-// 成功-返回最后一个不大于e的元素的位置, 失败-返回NULL
+// 成功-返回最后一个不大于e的元素的位置, 有可能返回header
 template<typename T>
 ListNodePosi<T> List<T>::search(T const& e, int n, ListNodePosi<T> p) const {
     do {
         p = p->pred;
         n--;
     } while (-1 < n && e < p->data);
-    return valid(p) ? p : NULL;
+    return p;
 }
 
 // 对当前无序列表去重
@@ -340,7 +340,7 @@ template<typename T> void List<T>::selectionSort(ListNodePosi<T> p, int n) {
 // 对列表中起始于位置p, 宽度为n的区间做插入排序
 template<typename T> void List<T>::insertionSort(ListNodePosi<T> p, int n) {
     for (int r = 0; r < n; r++) {
-        insertA(search(p->data, r, p), p->data);
+        insertAfter(search(p->data, r, p), p->data);
         p = p->succ;
         remove(p->pred);
     }
@@ -370,14 +370,14 @@ ListNodePosi<T> List<T>::merge(ListNodePosi<T> p, int n, List<T> &L, ListNodePos
             n--;
         } else {
             ListNodePosi<T> qq = q->succ;
-            insertB(p, L.remove(q));
+            insertBefore(L.remove(q), p);
             q = qq;
             m--;
         }
     if (&L != this) {
         while (0 < m) {
             ListNodePosi<T> qq = q->succ;
-            insertB(p, L.remove(q));
+            insertBefore(L.remove(q), p);
             q = qq;
             m--;
         }
@@ -406,7 +406,10 @@ template<typename T>
 bool List<T>::operator== (List<T> const& l) const {
     if (_size != l.size()) return false;
     ListNodePosi<T> p = first(), q = l.first();
-    while (valid(p) && valid(q))  // 前提为类型T重载了!=号
+    while (valid(p) && valid(q)) {  // 前提为类型T重载了!=号
         if (p->data != q->data) return false;
+	p = p->succ;
+	q = q->succ;
+    }
     return true;
 }

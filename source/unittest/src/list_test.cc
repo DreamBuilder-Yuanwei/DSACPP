@@ -53,10 +53,10 @@ void list_test() {
     printf("The random list:\n");
     ListNodePosi<int> p = l1.first();
     while (l1.valid(p)) {
-        printf("%4d ");
+        printf("%4d ", p->data);
         p = p->succ;
     }
-    printf("\n");
+    printf("\nprint end!\n");
 
     // 测试列表构造函数
     // l1 == l2 == l3 == l4 == l5
@@ -80,13 +80,13 @@ void list_test() {
     l2.insertionSort(l2.first(), l2.size());
     l3.mergeSort(l3.first(), l3.size());
     assert(l1.disorder() == true && l2.disorder() == true && l3.disorder() == true);
-    assert(l4.disorder == false && l5.disorder == false);
+    assert(l4.disorder() == false && l5.disorder() == false);
     assert(l1 == l2 && l1 == l3);
     // 打印排序后的列表
     printf("The sorted list:\n");
-    ListNodePosi<int> p = l1.first();
+    p = l1.first();
     while (l1.valid(p)) {
-        printf("%4d ");
+        printf("%4d ", p->data);
         p = p->succ;
     }
     printf("\n");
@@ -105,9 +105,9 @@ void list_test() {
     assert(l4.size() == 0 && l4.empty() == true);
     // 打印归并后的列表
     printf("The merged list:\n");
-    ListNodePosi<int> p = l1.first();
+    p = l1.first();
     while (l1.valid(p)) {
-        printf("%4d ");
+        printf("%4d ", p->data);
         p = p->succ;
     }
     printf("\n");
@@ -120,9 +120,9 @@ void list_test() {
     // 测试traverse接口
     l1.traverse(increase);
     printf("The increased list:\n");
-    ListNodePosi<int> p = l1.first();
+    p = l1.first();
     while (l1.valid(p)) {
-        printf("%4d ");
+        printf("%4d ", p->data);
         p = p->succ;
     }
     printf("\n");
@@ -141,17 +141,17 @@ void list_test() {
     // 测试去重接口
     int num1 = l4.deduplicate();
     printf("The deduplicated list:\n");
-    ListNodePosi<int> p = l4.first();
+    p = l4.first();
     while (l4.valid(p)) {
-        printf("%4d ");
+        printf("%4d ", p->data);
         p = p->succ;
     }
     printf("\n");
     int num2 = l2.uniquify();
     printf("The uniquified list:\n");
-    ListNodePosi<int> p = l2.first();
+    p = l2.first();
     while (l2.valid(p)) {
-        printf("%4d ");
+        printf("%4d ", p->data);
         p = p->succ;
     }
     printf("\n");

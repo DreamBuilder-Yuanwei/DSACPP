@@ -8,7 +8,7 @@ SOURCE=$(TOP_DIR)/main.cc $(TOP_DIR)/src/*.cc
 all: $(TARGET)
 
 $(TARGET): $(SOURCE)
-	$(CXX) $(INCLUDE_PATH) $(LIB_PATH) -o $@ $^ $(LIB)
+	$(CXX) $(INCLUDE_PATH) $(LIB_PATH) -g -o $@ $^ $(LIB)
 
 .PHONY: clean
 clean:

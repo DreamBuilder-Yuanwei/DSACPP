@@ -30,21 +30,21 @@ void inversion_test() {
     printf("\n");
     Timer timer;
     long long inv1 = getInversionBubbleSort(A, 0, n);
-    printf("getInversionBubbleSort: result-%ld, spend time-%.3lfms\n", inv1, timer.spend_time_micro());
+    printf("getInversionBubbleSort: result-%lld, spend time-%.3lfms\n", inv1, timer.spend_time_micro());
     
     srand(max);
     for (int i = 0; i < n; i++)
         A[i] = rand() % (max + 1);
     timer.reset();
     long long inv2 = getInversionInsertionSort(A, 0, n);
-    printf("getInversionInsertionSort: result-%ld, spend time-%.3lfms\n", inv2, timer.spend_time_micro());
+    printf("getInversionInsertionSort: result-%lld, spend time-%.3lfms\n", inv2, timer.spend_time_micro());
     
     srand(max);
     for (int i = 0; i < n; i++)
         A[i] = rand() % (max + 1);
     timer.reset();
     long long inv3 = getInversionMergeSort(A, 0, n);
-    printf("getInversionMergeSort: result-%ld, spend time-%.3lfms\n", inv3, timer.spend_time_micro());
+    printf("getInversionMergeSort: result-%lld, spend time-%.3lfms\n", inv3, timer.spend_time_micro());
 
     assert(inv1 == inv2 && inv1 == inv3);
 
