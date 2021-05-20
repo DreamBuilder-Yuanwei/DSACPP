@@ -149,6 +149,13 @@ template<typename T> class List {
 
     // 重载下标运算符[]
     T & operator[] (Rank r);
+
+    // 重载=
+    List<T> & operator= (List<T> const& l);  // 可作为左值
+    List<T> const& operator= (List<T> const& l) const;  // 作为右值
+
+    // 重载==
+    bool operator== (List<T> const& l) const;
 };  // List
 
 // 列表初始化
@@ -377,4 +384,29 @@ ListNodePosi<T> List<T>::merge(ListNodePosi<T> p, int n, List<T> &L, ListNodePos
         head_L->succ = q;
     }
     return head->succ;
+}
+
+// 重载=
+template<typename T>
+List<T> & List<T>::operator= (List<T> const& l) {
+    clear();  // 先释放原有空间
+    copyNodes(l.first(), l.size());  // 拷贝
+    return *this;
+}
+
+template<typename T>
+List<T> const& List<T>::operator= (List<T> const& l) const {
+    init();
+    copyNodes(l.first(), l.size());
+    return *this;
+}
+
+// 重载==
+template<typename T>
+bool List<T>::operator== (List<T> const& l) const {
+    if (_size != l.size()) return false;
+    ListNodePosi<T> p = first(), q = l.first();
+    while (valid(p) && valid(q))  // 前提为类型T重载了!=号
+        if (p->data != q->data) return false;
+    return true;
 }

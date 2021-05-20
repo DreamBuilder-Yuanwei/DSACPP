@@ -25,17 +25,22 @@ int main() {
     printf("<---bitmap_test end!\n");
     */
     /*
-    printf("now start to run ssbd_test--->");
+    printf("now start to run ssbd_test--->\n");
     ssbg_test();
     printf("<---ssbd_test end!\n");
     */
     /*
-    printf("now start to run eratosthenes_test--->");
+    printf("now start to run eratosthenes_test--->\n");
     eratosthenes_test();
     printf("<---eratosthenes_test end!\n");
     */
+    /*
     printf("now start to run inversion_test--->\n");
     inversion_test();
     printf("<--inversion_test end!\n");
+    */
+    printf("now start to run list_test--->\n");
+    list_test();
+    printf("<--list_test end!\n");
     return 0;
 }

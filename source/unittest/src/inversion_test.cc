@@ -29,22 +29,22 @@ void inversion_test() {
     }
     printf("\n");
     Timer timer;
-    int inv1 = getInversionBubbleSort(A, 0, n);
-    printf("getInversionBubbleSort: result-%d, spend time-%.3lfms\n", inv1, timer.spend_time_micro());
+    long long inv1 = getInversionBubbleSort(A, 0, n);
+    printf("getInversionBubbleSort: result-%ld, spend time-%.3lfms\n", inv1, timer.spend_time_micro());
     
     srand(max);
     for (int i = 0; i < n; i++)
         A[i] = rand() % (max + 1);
     timer.reset();
-    int inv2 = getInversionInsertionSort(A, 0, n);
-    printf("getInversionInsertionSort: result-%d, spend time-%.3lfms\n", inv2, timer.spend_time_micro());
+    long long inv2 = getInversionInsertionSort(A, 0, n);
+    printf("getInversionInsertionSort: result-%ld, spend time-%.3lfms\n", inv2, timer.spend_time_micro());
     
     srand(max);
     for (int i = 0; i < n; i++)
         A[i] = rand() % (max + 1);
     timer.reset();
-    int inv3 = getInversionMergeSort(A, 0, n);
-    printf("getInversionMergeSort: result-%d, spend time-%.3lfms\n", inv3, timer.spend_time_micro());
+    long long inv3 = getInversionMergeSort(A, 0, n);
+    printf("getInversionMergeSort: result-%ld, spend time-%.3lfms\n", inv3, timer.spend_time_micro());
 
     assert(inv1 == inv2 && inv1 == inv3);
 

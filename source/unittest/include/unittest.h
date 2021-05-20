@@ -25,3 +25,5 @@ void ssbg_test();
 void eratosthenes_test();
 // 求逆序对算法的测试函数
 void inversion_test();
+// 列表接口的测试函数
+void list_test();
