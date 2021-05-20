@@ -369,6 +369,7 @@ ListNodePosi<T> List<T>::merge(ListNodePosi<T> p, int n, List<T> &L, ListNodePos
             if (q == (p = p->succ)) break;
             n--;
         } else {
+            if (!valid(q)) break;
             q = q->succ;
             if (!valid(q)) break;
             insertBefore(L.remove((q->pred), p);
