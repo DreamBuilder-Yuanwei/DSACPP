@@ -29,8 +29,13 @@ int main() {
     ssbg_test();
     printf("<---ssbd_test end!\n");
     */
+    /*
     printf("now start to run eratosthenes_test--->");
     eratosthenes_test();
     printf("<---eratosthenes_test end!\n");
+    */
+    printf("now start to run inversion_test--->\n");
+    inversion_test();
+    printf("<--inversion_test end!\n");
     return 0;
 }

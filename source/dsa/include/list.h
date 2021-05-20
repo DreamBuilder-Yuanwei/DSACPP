@@ -166,7 +166,7 @@ template<typename T> void List<T>::init() {
 }
 
 // 重载下标运算符[]
-template<typename T> T List<T>::operator[] (Rank r) const {
+template<typename T> T & List<T>::operator[] (Rank r) {
     ListNodePosi<T> p = first();
     while (0 < r--) p = p->succ;
     return p->data;
@@ -318,7 +318,7 @@ ListNodePosi<T> List<T>::selectMax(ListNodePosi<T> p, int n) {
 }
 
 // 对列表中起始于位置p, 宽度为n的区间做选择排序
-template<typename T> void List<T>::selectionSort(ListNodePosi<T> p, n) {
+template<typename T> void List<T>::selectionSort(ListNodePosi<T> p, int n) {
     ListNodePosi<T> head = p->pred, tail = p;
     for (int i = 0; i < n; i++)
         tail = tail->succ;
@@ -331,7 +331,7 @@ template<typename T> void List<T>::selectionSort(ListNodePosi<T> p, n) {
 }
 
 // 对列表中起始于位置p, 宽度为n的区间做插入排序
-template(typename T) void List<T>::insertionSort(ListNodePosi<T> p, int n) {
+template<typename T> void List<T>::insertionSort(ListNodePosi<T> p, int n) {
     for (int r = 0; r < n; r++) {
         insertA(search(p->data, r, p), p->data);
         p = p->succ;

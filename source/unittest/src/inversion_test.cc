@@ -8,23 +8,24 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <cassert>
 #include "include/timer.h"
 #include "include/inversion.h"
 #include "include/unittest.h"
 
-void intversion_test() {
+void inversion_test() {
     int n = 0, max = 0;
     printf("Please define the length and the biggest data of the random sequence.\nlength = ");
     scanf("%d", &n);
-    printf("biggest one = %d");
+    printf("biggest one = ");
     scanf("%d", &max);
-    char *A = new char[n];
+    int *A = new int[n];
     memset(A, 0, n);
     srand(max);
     printf("now generate sequence randomly...\n");
     for (int i = 0; i < n; i++) {
         A[i] = rand() % (max + 1);
-        printf("%6d", A[i]);
+        printf("%-6d\t", A[i]);
     }
     printf("\n");
     Timer timer;
@@ -43,7 +44,9 @@ void intversion_test() {
         A[i] = rand() % (max + 1);
     timer.reset();
     int inv3 = getInversionMergeSort(A, 0, n);
-    printf("getInversionInsertionSort: result-%d, spend time-%.3lfms\n", inv3, timer.spend_time_micro());
+    printf("getInversionMergeSort: result-%d, spend time-%.3lfms\n", inv3, timer.spend_time_micro());
+
+    assert(inv1 == inv2 && inv1 == inv3);
 
     delete [] A;
     return;
