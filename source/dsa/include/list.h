@@ -370,7 +370,7 @@ ListNodePosi<T> List<T>::merge(ListNodePosi<T> p, int n, List<T> &L, ListNodePos
             n--;
         } else {
             if (!valid(q)) break;
-            q = q->succ;
+            q = q->succ;  // bug-执行这一步之前q为trailer 未修复
             if (!valid(q)) break;
             insertBefore(L.remove((q->pred), p);
             m--;
